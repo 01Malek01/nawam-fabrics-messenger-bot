@@ -1,0 +1,28 @@
+{
+  "name": "nawam-fabrics-messenger-bot",
+  "version": "1.0.0",
+  "description": "Facebook Messenger bot for Nawam Fabrics",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "dev": "nodemon bot.js"
+  },
+  "keywords": [
+    "messenger",
+    "bot",
+    "facebook",
+    "nodejs"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "airtable": "^0.12.2",
+    "axios": "^1.6.0",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
