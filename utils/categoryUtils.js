@@ -11,12 +11,12 @@ const DEFAULT_CATEGORY_IMAGE =
  * @returns {Object} Formatted category object
  */
 const createCategory = (categoryData, subCategories = []) => {
-  console.log('Creating category:', {
-    id: categoryData.id,
-    name: categoryData.Name,
-    subCategories: subCategories.map(s => ({ id: s.id, name: s.Name }))
-  });
-  
+  // console.log('Creating category:', {
+  //   id: categoryData.id,
+  //   name: categoryData.Name,
+  //   subCategories: subCategories.map(s => ({ id: s.id, name: s.Name }))
+  // });
+
   const category = {
     id: categoryData.id,
     name: categoryData.Name,
@@ -25,8 +25,8 @@ const createCategory = (categoryData, subCategories = []) => {
       name: sub.Name || sub.name, // Handle both Name and name cases
     })),
   };
-  
-  console.log('Created category object:', JSON.stringify(category, null, 2));
+
+  // console.log("Created category object:", JSON.stringify(category, null, 2));
   return category;
 };
 
@@ -37,7 +37,7 @@ const createCategory = (categoryData, subCategories = []) => {
 const fetchCategories = async () => {
   try {
     const allCategories = await airtableService.getAllRecords("Categories");
-    console.log("fetched categories", allCategories);
+    // console.log("fetched categories", allCategories);
     // Separate main categories (no parent) from subcategories
     const mainCategories = allCategories.filter(
       (category) => !category?.ParentCategory
@@ -46,8 +46,8 @@ const fetchCategories = async () => {
       (category) => category?.ParentCategory?.length > 0
     );
 
-    console.log("main categories", mainCategories);
-    console.log("sub categories", subCategories);
+    // console.log("main categories", mainCategories);
+    // console.log("sub categories", subCategories);
     // Map through main categories and attach their subcategories
     const categoriesWithSubs = mainCategories.map((category) => {
       // Find subcategories for this main category
@@ -61,9 +61,9 @@ const fetchCategories = async () => {
       return createCategory(category, categorySubs);
     });
 
-    console.log(
-      `Loaded ${categoriesWithSubs.length} main categories with subcategories`
-    );
+    // console.log(
+    //   `Loaded ${categoriesWithSubs.length} main categories with subcategories`
+    // );
     return categoriesWithSubs;
   } catch (error) {
     console.error("Error fetching categories:", error);
@@ -88,21 +88,24 @@ const findCategoryById = (categories, categoryId) => {
  * @returns {Object|null} Found subcategory or null
  */
 const findSubcategoryById = (categories, subcategoryId) => {
-  console.log('Searching for subcategory ID:', subcategoryId);
+  console.log("Searching for subcategory ID:", subcategoryId);
   for (let category of categories) {
-    console.log('Checking category:', category.name, 'with subcategories:', category.subCategories);
-    const subcategory = category.subCategories?.find(
-      (sub) => {
-        console.log('Checking subcategory:', sub);
-        return sub.id === subcategoryId;
-      }
+    console.log(
+      "Checking category:",
+      category.name,
+      "with subcategories:",
+      category.subCategories
     );
+    const subcategory = category.subCategories?.find((sub) => {
+      console.log("Checking subcategory:", sub);
+      return sub.id === subcategoryId;
+    });
     if (subcategory) {
-      console.log('Found subcategory:', subcategory);
+      console.log("Found subcategory:", subcategory);
       return subcategory;
     }
   }
-  console.log('Subcategory not found');
+  console.log("Subcategory not found");
   return null;
 };
 

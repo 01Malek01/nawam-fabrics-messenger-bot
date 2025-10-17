@@ -36,7 +36,7 @@ const airtableService = {
   },
 };
 
-airtableService.getAllRecords("Products").then((products) => {
-  console.log("Products:", products);
-});
+// airtableService.getAllRecords("Products").then((products) => {
+//   console.log("Products:", products);
+// });
 module.exports = { airtableService };
